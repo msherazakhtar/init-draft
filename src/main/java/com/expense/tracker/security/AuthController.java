@@ -2,21 +2,23 @@ package com.expense.tracker.security;
 
 import java.util.Map;
 
+import com.expense.tracker.events.UserRegisteredEvent;
+import com.expense.tracker.exceptions.UserNotFoundException;
 import com.expense.tracker.models.UsersORM;
 import com.expense.tracker.repositories.UserRepository;
+import com.expense.tracker.services.OtpService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.expense.tracker.dtos.ApiResponse;
 import com.expense.tracker.dtos.AuthRequest;
@@ -31,16 +33,24 @@ public class AuthController {
 
     private AuthenticationManager authenticationManager;
 
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    private UserService userService;
+    private final UserService userService;
+    private final OtpService otpService;
+    private final UserRepository userRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
-//    private UserRepository userRepo;
+
+    //    private UserRepository userRepo;
     public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil,
-            UserService userService) {
+                          UserService userService, OtpService otpService, UserRepository userRepository,
+                          ApplicationEventPublisher eventPublisher) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userService = userService;
+        this.otpService = otpService;
+        this.userRepository = userRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @PostMapping("/login")
@@ -54,6 +64,10 @@ public class AuthController {
             String token = jwtUtil.generateToken(user);
 
             return ResponseEntity.ok(Map.of("token", token));
+        } catch (DisabledException ex) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("Error", "Your email is not verified. Please verify your email via OTP."));
         } catch (BadCredentialsException | UsernameNotFoundException ex) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -67,6 +81,19 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponseUtil.setApiResponse(ResponseStatus.SUCCESS, user));
+    }
+
+    @PostMapping("/generateNewOtp")
+    public ResponseEntity<ApiResponse<String>> generateNewOtp(@RequestParam("email") String email) {
+        UsersORM usersORM = userRepository.findByEmail(email).orElseThrow(
+                () -> new UserNotFoundException("User Not Found"));
+        int otp = otpService.generateAndSaveOtp(email);
+        eventPublisher.publishEvent(
+                new UserRegisteredEvent(this, usersORM.getEmail(), usersORM.getFirstName() + " " + usersORM.getLastName(), otp)
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponseUtil.setApiResponse(ResponseStatus.SUCCESS, "New OTP has been sent to " + email));
     }
 
 //     @PostMapping("/register")

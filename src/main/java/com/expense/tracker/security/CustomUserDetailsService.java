@@ -3,6 +3,7 @@ package com.expense.tracker.security;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UsersORM user = userRepo.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
 
         return new CustomUserDetails(
                 user.getUserId(),        // now userId is carried

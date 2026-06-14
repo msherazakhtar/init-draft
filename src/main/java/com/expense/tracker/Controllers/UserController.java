@@ -40,15 +40,15 @@ public class UserController {
                                 .body(ApiResponseUtil.setApiResponse(ResponseStatus.SUCCESS, userRecord));
         }
 
-        @GetMapping("/verify")
+        @PostMapping("/verify")
         public ResponseEntity<ApiResponse<String>> verifyUserEmail(
-                        @RequestParam(name = "userId") String userId,
-                        @RequestParam(name = "verificationCode") String verificationCode
+                        @RequestParam(name = "email") String email,
+                        @RequestParam(name = "otp") String otp
 
         ) {
-                System.out.println(verificationCode);
-                System.out.println(userId);
-                String respMessage = userService.verifyUser(userId, verificationCode);
+                System.out.println(email);
+                System.out.println(otp);
+                String respMessage = userService.verifyUser(email, otp);
                 ApiResponse<String> apiResponse = new ApiResponse<>(
                                 "User Verification",
                                 respMessage,

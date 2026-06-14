@@ -1,6 +1,7 @@
 package com.expense.tracker.services;
 
 import com.expense.tracker.events.UserRegisteredEvent;
+import com.expense.tracker.exceptions.InvalidOtpException;
 import com.expense.tracker.utilities.GeneralUtilities;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,10 +21,12 @@ import com.expense.tracker.utilities.MappingUtility;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final OtpService otpService;
 
-    public UserServiceImpl(UserRepository userRepository, ApplicationEventPublisher eventPublisher) {
+    public UserServiceImpl(UserRepository userRepository, ApplicationEventPublisher eventPublisher, OtpService otpService) {
         this.userRepository = userRepository;
         this.eventPublisher = eventPublisher;
+        this.otpService = otpService;
     }
 
     @Override
@@ -34,25 +37,27 @@ public class UserServiceImpl implements UserService {
         }
         UsersORM userORM = MappingUtility.userRecordToORM(user);
         userORM.setPassword(new BCryptPasswordEncoder().encode(userORM.getPassword()));
+        userORM.setIsVerified(false);
         userORM = userRepository.save(userORM);
         // publish the event
         eventPublisher.publishEvent(
-                new UserRegisteredEvent(this, userORM.getEmail(), userORM.getFirstName() + " " + userORM.getLastName(), GeneralUtilities.generateOTP())
+                new UserRegisteredEvent(this, userORM.getEmail(), userORM.getFirstName() + " " + userORM.getLastName(), otpService.generateAndSaveOtp(userORM.getEmail()))
         );
         return MappingUtility.userORMToUserRecord(userORM);
 
     }
 
     @Override
-    public String verifyUser(String userId, String verificationCode) {
-        UsersORM user = userRepository.findById(Long.parseLong(userId))
+    public String verifyUser(String email, String otp) {
+        UsersORM user = userRepository.findByEmail(email)
                 .orElseThrow(
                         () -> new UserNotFoundException("User not found..."));
-        if (user.getVerificationCode().equals(verificationCode)) {
-            userRepository.save(user);
-            return "User Verified Successfully.";
+        if (!otpService.verifyOtp(email,otp)) {
+            throw new InvalidOtpException("Invalid OTP");
         }
-        return "Invalid Verification Code... Please Try Again...";
+        user.setIsVerified(true);
+        userRepository.save(user);
+        return "User Verified Successfully.";
     }
 
     @Override

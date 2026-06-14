@@ -697,12 +697,13 @@ OFFSET (1 - 1) * 1
 
 
 
+jqek ofhh wdpg fnkp
 
-
+update mail_configuration set username = 'sherazakhtarmalik@gmail.com' , password = 'jqek ofhh wdpg fnkp'
 
 select * from mail_configuration where mail_server = 'Gmail'
 select * from users
 
 
-Delete from users where user_id  = 24
+Delete from users where user_id  = 25
 

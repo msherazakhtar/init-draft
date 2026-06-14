@@ -37,4 +37,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
                 new ApiResponse<>(exception.getMessage(), null, ResponseStatus.NOT_ALLOWED));
     }
+    @ExceptionHandler(InvalidOtpException.class)
+    public ResponseEntity<ApiResponse<String>> handleInvalidOtpException(InvalidOtpException exception) {
+        System.out.println("Exception Occurred : " + exception.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ApiResponse<>(exception.getMessage(), null, ResponseStatus.NOT_ALLOWED));
+    }
 }

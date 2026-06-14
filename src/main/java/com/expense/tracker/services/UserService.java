@@ -9,7 +9,7 @@ public interface UserService {
 
     UserRecord registerUser(UserRecord user);
 
-    String verifyUser(String userId,String verificationCode);
+    String verifyUser(String email,String otp);
 
     UserProfileRecord getUserProfile(String userId);
 
