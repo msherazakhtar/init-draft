@@ -6,6 +6,7 @@ import com.expense.tracker.events.UserRegisteredEvent;
 import com.expense.tracker.exceptions.UserNotFoundException;
 import com.expense.tracker.models.UsersORM;
 import com.expense.tracker.repositories.UserRepository;
+import com.expense.tracker.services.OtpRateLimiterService;
 import com.expense.tracker.services.OtpService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -39,18 +40,20 @@ public class AuthController {
     private final OtpService otpService;
     private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final OtpRateLimiterService otpRateLimiterService;
 
 
     //    private UserRepository userRepo;
     public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil,
                           UserService userService, OtpService otpService, UserRepository userRepository,
-                          ApplicationEventPublisher eventPublisher) {
+                          ApplicationEventPublisher eventPublisher, OtpRateLimiterService otpRateLimiterService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userService = userService;
         this.otpService = otpService;
         this.userRepository = userRepository;
         this.eventPublisher = eventPublisher;
+        this.otpRateLimiterService = otpRateLimiterService;
     }
 
     @PostMapping("/login")
@@ -85,6 +88,11 @@ public class AuthController {
 
     @PostMapping("/generateNewOtp")
     public ResponseEntity<ApiResponse<String>> generateNewOtp(@RequestParam("email") String email) {
+        if (!otpRateLimiterService.isAllowed(email)) {
+            long waitTime = otpRateLimiterService.getRemainingTimeMinutes(email);
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                    .body(ApiResponseUtil.setApiResponse(ResponseStatus.ERROR, "You have requested too many OTPs. Please try again in " + waitTime + " minutes."));
+        }
         UsersORM usersORM = userRepository.findByEmail(email).orElseThrow(
                 () -> new UserNotFoundException("User Not Found"));
         int otp = otpService.generateAndSaveOtp(email);
