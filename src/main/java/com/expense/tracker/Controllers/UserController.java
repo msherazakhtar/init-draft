@@ -40,12 +40,14 @@ public class UserController {
                                 .body(ApiResponseUtil.setApiResponse(ResponseStatus.SUCCESS, userRecord));
         }
 
-        @GetMapping("/verify/{userId}/{verificationCode}")
+        @GetMapping("/verify")
         public ResponseEntity<ApiResponse<String>> verifyUserEmail(
                         @RequestParam(name = "userId") String userId,
                         @RequestParam(name = "verificationCode") String verificationCode
 
         ) {
+                System.out.println(verificationCode);
+                System.out.println(userId);
                 String respMessage = userService.verifyUser(userId, verificationCode);
                 ApiResponse<String> apiResponse = new ApiResponse<>(
                                 "User Verification",

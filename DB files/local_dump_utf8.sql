@@ -125,7 +125,7 @@ ALTER TABLE public.expenses ALTER COLUMN expense_id ADD GENERATED ALWAYS AS IDEN
 CREATE TABLE public.mail_configuration (
     configuration_id bigint NOT NULL,
     sender character varying,
-    reciever character varying,
+    receiver character varying,
     username character varying,
     password character varying,
     mail_server character varying,
@@ -214,7 +214,7 @@ COPY public.expenses (expense_id, title, details, amount, category, user_id, is_
 -- Data for Name: mail_configuration; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mail_configuration (configuration_id, sender, reciever, username, password, mail_server, is_active, mail_template) FROM stdin;
+COPY public.mail_configuration (configuration_id, sender, receiver, username, password, mail_server, is_active, mail_template) FROM stdin;
 1	devbotsolutions.com	sheraz321089@gmail.com	sherazakhtarmalik@gmail.com	gmph ildd dfpr dnyo	Gmail	t	<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Verify Your Email</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            background-color: #f4f4f7;\n            margin: 0;\n            padding: 0;\n        }\n        .email-container {\n            max-width: 600px;\n            margin: 40px auto;\n            background-color: #ffffff;\n            border-radius: 8px;\n            overflow: hidden;\n            box-shadow: 0 2px 8px rgba(0,0,0,0.1);\n        }\n        .email-header {\n            background-color: #4A90E2;\n            color: white;\n            text-align: center;\n            padding: 24px;\n        }\n        .email-body {\n            padding: 24px;\n            color: #333;\n        }\n        .email-body h2 {\n            margin-top: 0;\n        }\n        .verify-button {\n            display: inline-block;\n            margin-top: 24px;\n            background-color: #4A90E2;\n            color: white;\n            padding: 12px 24px;\n            text-decoration: none;\n            border-radius: 6px;\n            font-weight: bold;\n        }\n        .email-footer {\n            font-size: 12px;\n            text-align: center;\n            padding: 16px;\n            color: #888;\n        }\n        @media (max-width: 600px) {\n            .email-container {\n                margin: 20px;\n            }\n        }\n    </style>\n</head>\n<body>\n\n<div class="email-container">\n    <div class="email-header">\n        <h1>Verify Your Email</h1>\n    </div>\n    <div class="email-body">\n        <h2>Hello ≡ƒæï</h2>\n        <p>Thanks for signing up! Please verify your email address to activate your account.</p>\n        <p>Here is your Verification Code:</p>\n        <h3>{verificationCode}</h3>\n        <p>If you didnΓÇÖt create this account, you can safely ignore this email.</p>\n    </div>\n    <div class="email-footer">\n        &copy; 2025 DevbotSolutions. All rights reserved.\n    </div>\n</div>\n\n</body>\n</html>\n
 \.
 

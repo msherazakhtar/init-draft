@@ -1,5 +1,8 @@
 package com.expense.tracker.services;
 
+import com.expense.tracker.events.UserRegisteredEvent;
+import com.expense.tracker.utilities.GeneralUtilities;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,10 +18,12 @@ import com.expense.tracker.utilities.MappingUtility;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, ApplicationEventPublisher eventPublisher) {
         this.userRepository = userRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -30,6 +35,10 @@ public class UserServiceImpl implements UserService {
         UsersORM userORM = MappingUtility.userRecordToORM(user);
         userORM.setPassword(new BCryptPasswordEncoder().encode(userORM.getPassword()));
         userORM = userRepository.save(userORM);
+        // publish the event
+        eventPublisher.publishEvent(
+                new UserRegisteredEvent(this, userORM.getEmail(), userORM.getFirstName() + " " + userORM.getLastName(), GeneralUtilities.generateOTP())
+        );
         return MappingUtility.userORMToUserRecord(userORM);
 
     }

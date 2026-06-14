@@ -17,8 +17,8 @@ import jakarta.mail.internet.MimeMessage;
 
 public class EmailUtility {
     public static Map<String, Object> sendUserVerificationEmail(MailConfigurationORM mailConfiguration,
-            String reciepent, String code) {
-        mailConfiguration.setReciever(reciepent);
+                                                                String recipient, String code) {
+        mailConfiguration.setReceiver(recipient);
         mailConfiguration.setMailTemplate(
                 mailConfiguration.getMailTemplate().replace("{verificationCode}",
                         code));
@@ -40,6 +40,7 @@ public class EmailUtility {
             return emailResponseMap;
         } catch (MessagingException e) {
             emailResponseMap.put("error", "Email can't be sent!!!");
+            System.out.println("Email can't be sent!!!"+e.getMessage());
             return emailResponseMap;
         }
     }
@@ -47,10 +48,11 @@ public class EmailUtility {
     private static Session intiateMailSession(String userName, String password) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.required", "true");
+        props.put("mail.debug", "true");
 
         Session session = Session.getInstance(props, new jakarta.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -65,7 +67,7 @@ public class EmailUtility {
             MimeMessage message = new MimeMessage(session);
             message.setContent(gmailDTO.body(), "text/html");
             message.setFrom(new InternetAddress(gmailDTO.sender()));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(gmailDTO.reciever()));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(gmailDTO.receiver()));
             message.setSubject(gmailDTO.subject());
             return message;
         } catch (MessagingException e) {
@@ -77,7 +79,7 @@ public class EmailUtility {
     public static GmailDTO mapToGmailDTO(MailConfigurationORM config, String subject) {
         return new GmailDTO(
                 config.getSender(),
-                config.getReciever(),
+                config.getReceiver(),
                 config.getMailTemplate(),
                 subject,
                 config.getUsername(),

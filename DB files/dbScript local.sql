@@ -23,14 +23,14 @@ drop table mail_configuration
 Create table mail_configuration(
 	configuration_id bigint generated always as identity,
 	sender varchar,
-	reciever varchar,
+	receiver varchar,
 	username varchar,
 	password varchar,
 	mail_server varchar,
 	is_active boolean
 )
 
-INSERT INTO mail_configuration (sender, reciever, username, password, mail_server, is_active)
+INSERT INTO mail_configuration (sender, receiver, username, password, mail_server, is_active)
 VALUES ('sherazakhtarmalik@gmail.com', 'sheraz321089@gmail.com', 'sheraz', 'alsjflkjads', 'Gmail', true);
 
 update mail_configuration set username = 'sherazakhtarmalik@gmail.com',password = 'gmph ildd dfpr dnyo'
@@ -385,7 +385,7 @@ select * from users
 "category_id"	"name"	"user_id"	"is_global"	"is_deleted"	"date_created"	"created_by"	"date_modified"	"modified_by"
 
 
-"configuration_id"	"sender"	"reciever"	"username"	"password"	"mail_server"	"is_active"
+"configuration_id"	"sender"	"receiver"	"username"	"password"	"mail_server"	"is_active"
 
 "user_id"	"first_name"	"last_name"	"email"	"password"	"is_active"	"is_verified"	"verification_code"	"profile_pic_url"	"is_deleted"	"date_created"	"created_by"	"modified_by"	"date_modified"
 

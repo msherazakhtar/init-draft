@@ -2,6 +2,8 @@ package com.expense.tracker.security;
 
 import java.util.Map;
 
+import com.expense.tracker.models.UsersORM;
+import com.expense.tracker.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +35,7 @@ public class AuthController {
 
     private UserService userService;
 
+//    private UserRepository userRepo;
     public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil,
             UserService userService) {
         this.authenticationManager = authenticationManager;
@@ -65,13 +69,13 @@ public class AuthController {
                 .body(ApiResponseUtil.setApiResponse(ResponseStatus.SUCCESS, user));
     }
 
-    // @PostMapping("/register")
-    // public ResponseEntity<String> register(@RequestBody AuthRequest request) {
-    // UsersORM user = new UsersORM();
-    // user.setEmail(request.getUsername());
-    // user.setPassword(new BCryptPasswordEncoder().encode(request.getPassword()));
-    // // user.setRole("ROLE_USER");
-    // userRepo.save(user);
-    // return ResponseEntity.ok("User registered");
-    // }
+//     @PostMapping("/register")
+//     public ResponseEntity<String> register(@RequestBody AuthRequest request) {
+//     UsersORM user = new UsersORM();
+//     user.setEmail(request.getUsername());
+//     user.setPassword(new BCryptPasswordEncoder().encode(request.getPassword()));
+//     // user.setRole("ROLE_USER");
+//     userRepo.save(user);
+//     return ResponseEntity.ok("User registered");
+//     }
 }

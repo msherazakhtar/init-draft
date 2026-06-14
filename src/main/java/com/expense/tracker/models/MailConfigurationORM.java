@@ -16,8 +16,8 @@ public class MailConfigurationORM {
     private Long configurationId;
     @Column(name = "sender")
     private String sender;
-    @Column(name = "reciever")
-    private String reciever;
+    @Column(name = "receiver")
+    private String receiver;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
@@ -40,11 +40,11 @@ public class MailConfigurationORM {
     public void setSender(String sender) {
         this.sender = sender;
     }
-    public String getReciever() {
-        return reciever;
+    public String getReceiver() {
+        return receiver;
     }
-    public void setReciever(String reciever) {
-        this.reciever = reciever;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
     public String getUsername() {
         return username;

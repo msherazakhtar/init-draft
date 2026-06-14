@@ -17,7 +17,8 @@ public class JwtUtil {
 
     private final String SECRET_KEY = "zXCvBnMaSdFgHjKlQwErTyUiOp123456";
 
-    public String generateToken(UserDetails userDetails) {
+    public String
+    generateToken(UserDetails userDetails) {
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userDetails.getAuthorities().stream().findFirst().get().getAuthority());

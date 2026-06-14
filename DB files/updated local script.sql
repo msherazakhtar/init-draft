@@ -679,6 +679,30 @@ and g.is_deleted = false--and (CAST(e.group_id AS VARCHAR) =  or :groupId = '-1'
 group by g.group_id,g.name
 
 
+SELECT e.expense_id,
+       e.title,
+       e.details,
+       e.amount,
+       e.category,
+       g.name AS group_name,
+       e.expense_date,
+       CEIL(COUNT(*) OVER()::float /10) AS total_pages    -- adds total count to every row
+FROM expenses e
+LEFT JOIN groups g ON g.group_id = e.group_id
+
+ORDER BY e.date_created DESC
+LIMIT 1
+OFFSET (1 - 1) * 1
 
 
+
+
+
+
+
+select * from mail_configuration where mail_server = 'Gmail'
+select * from users
+
+
+Delete from users where user_id  = 24
 

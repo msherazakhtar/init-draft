@@ -27,6 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getUserId(),        // now userId is carried
                 user.getEmail(),
                 user.getPassword(),
+                user.getIsVerified(),
                 Collections.singleton(new SimpleGrantedAuthority("User")));
     }
 
