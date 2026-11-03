@@ -1,4 +1,4 @@
-package com.expense.tracker.Controllers;
+package com.init.draft.Controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.expense.tracker.dtos.ApiResponse;
-import com.expense.tracker.dtos.UserProfileRecord;
-import com.expense.tracker.dtos.UserRecord;
-import com.expense.tracker.enums.ResponseStatus;
-import com.expense.tracker.services.UserService;
-import com.expense.tracker.utilities.ApiResponseUtil;
+import com.init.draft.dtos.ApiResponse;
+import com.init.draft.dtos.UserProfileRecord;
+import com.init.draft.dtos.UserRecord;
+import com.init.draft.enums.ResponseStatus;
+import com.init.draft.services.UserService;
+import com.init.draft.utilities.ApiResponseUtil;
 
 @RestController
 @RequestMapping("/user")

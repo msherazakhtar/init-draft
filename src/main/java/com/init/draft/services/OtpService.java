@@ -1,4 +1,4 @@
-package com.expense.tracker.services;
+package com.init.draft.services;
 
 public interface OtpService {
 

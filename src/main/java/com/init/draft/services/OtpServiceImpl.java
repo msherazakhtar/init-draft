@@ -1,7 +1,7 @@
-package com.expense.tracker.services;
+package com.init.draft.services;
 
-import com.expense.tracker.repositories.OtpCacheRepository;
-import com.expense.tracker.utilities.GeneralUtilities;
+import com.init.draft.repositories.OtpCacheRepository;
+import com.init.draft.utilities.GeneralUtilities;
 import org.springframework.stereotype.Service;
 
 @Service

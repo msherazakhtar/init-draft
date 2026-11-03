@@ -1,10 +1,10 @@
-package com.expense.tracker.repositories;
+package com.init.draft.repositories;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.expense.tracker.models.UsersORM;
+import com.init.draft.models.UsersORM;
 
 public interface UserRepository extends JpaRepository<UsersORM, Long> {
     boolean existsByEmail(String email);

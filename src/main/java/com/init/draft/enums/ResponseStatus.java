@@ -1,4 +1,4 @@
-package com.expense.tracker.enums;
+package com.init.draft.enums;
 
 public enum ResponseStatus {
     SUCCESS,

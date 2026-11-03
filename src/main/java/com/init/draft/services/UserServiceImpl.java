@@ -1,21 +1,20 @@
-package com.expense.tracker.services;
+package com.init.draft.services;
 
-import com.expense.tracker.events.UserRegisteredEvent;
-import com.expense.tracker.exceptions.InvalidOtpException;
-import com.expense.tracker.utilities.GeneralUtilities;
+import com.init.draft.events.UserRegisteredEvent;
+import com.init.draft.exceptions.InvalidOtpException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.expense.tracker.dtos.UserProfileRecord;
-import com.expense.tracker.dtos.UserRecord;
-import com.expense.tracker.exceptions.UserAlreadyExistException;
-import com.expense.tracker.exceptions.UserNotFoundException;
-import com.expense.tracker.models.UsersORM;
-import com.expense.tracker.repositories.UserRepository;
-import com.expense.tracker.utilities.FileUtils;
-import com.expense.tracker.utilities.MappingUtility;
+import com.init.draft.dtos.UserProfileRecord;
+import com.init.draft.dtos.UserRecord;
+import com.init.draft.exceptions.UserAlreadyExistException;
+import com.init.draft.exceptions.UserNotFoundException;
+import com.init.draft.models.UsersORM;
+import com.init.draft.repositories.UserRepository;
+import com.init.draft.utilities.FileUtils;
+import com.init.draft.utilities.MappingUtility;
 
 @Service
 public class UserServiceImpl implements UserService {

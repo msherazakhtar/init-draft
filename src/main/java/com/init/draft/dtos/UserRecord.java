@@ -1,4 +1,4 @@
-package com.expense.tracker.dtos;
+package com.init.draft.dtos;
 
 public record UserRecord(Long userId,
         String firstName,

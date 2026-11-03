@@ -1,4 +1,4 @@
-package com.expense.tracker.security;
+package com.init.draft.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

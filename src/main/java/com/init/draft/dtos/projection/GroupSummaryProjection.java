@@ -1,4 +1,4 @@
-package com.expense.tracker.dtos.projection;
+package com.init.draft.dtos.projection;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

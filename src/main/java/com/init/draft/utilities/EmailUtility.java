@@ -1,11 +1,11 @@
-package com.expense.tracker.utilities;
+package com.init.draft.utilities;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.expense.tracker.dtos.GmailDTO;
-import com.expense.tracker.models.MailConfigurationORM;
+import com.init.draft.dtos.GmailDTO;
+import com.init.draft.models.MailConfigurationORM;
 
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;

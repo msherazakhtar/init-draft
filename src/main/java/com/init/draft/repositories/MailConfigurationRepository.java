@@ -1,10 +1,10 @@
-package com.expense.tracker.repositories;
+package com.init.draft.repositories;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.expense.tracker.models.MailConfigurationORM;
+import com.init.draft.models.MailConfigurationORM;
 
 public interface MailConfigurationRepository extends JpaRepository<MailConfigurationORM,Long> {
     Optional<MailConfigurationORM> findBymailServer(String serverType);

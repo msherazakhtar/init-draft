@@ -1,11 +1,8 @@
-package com.expense.tracker.utilities;
+package com.init.draft.utilities;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.expense.tracker.dtos.UserProfileRecord;
-import com.expense.tracker.dtos.UserRecord;
-import com.expense.tracker.models.UsersORM;
+import com.init.draft.dtos.UserProfileRecord;
+import com.init.draft.dtos.UserRecord;
+import com.init.draft.models.UsersORM;
 
 public class MappingUtility {
     public static UsersORM userRecordToORM(UserRecord user) {
@@ -42,5 +39,5 @@ public class MappingUtility {
         return userOrm;
     }
 
-   
+
 }

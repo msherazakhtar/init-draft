@@ -1,13 +1,13 @@
-package com.expense.tracker.security;
+package com.init.draft.security;
 
 import java.util.Map;
 
-import com.expense.tracker.events.UserRegisteredEvent;
-import com.expense.tracker.exceptions.UserNotFoundException;
-import com.expense.tracker.models.UsersORM;
-import com.expense.tracker.repositories.UserRepository;
-import com.expense.tracker.services.OtpRateLimiterService;
-import com.expense.tracker.services.OtpService;
+import com.init.draft.events.UserRegisteredEvent;
+import com.init.draft.exceptions.UserNotFoundException;
+import com.init.draft.models.UsersORM;
+import com.init.draft.repositories.UserRepository;
+import com.init.draft.services.OtpRateLimiterService;
+import com.init.draft.services.OtpService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +18,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.expense.tracker.dtos.ApiResponse;
-import com.expense.tracker.dtos.AuthRequest;
-import com.expense.tracker.dtos.UserRecord;
-import com.expense.tracker.enums.ResponseStatus;
-import com.expense.tracker.services.UserService;
-import com.expense.tracker.utilities.ApiResponseUtil;
+import com.init.draft.dtos.ApiResponse;
+import com.init.draft.dtos.AuthRequest;
+import com.init.draft.dtos.UserRecord;
+import com.init.draft.enums.ResponseStatus;
+import com.init.draft.services.UserService;
+import com.init.draft.utilities.ApiResponseUtil;
 
 @RestController
 @RequestMapping("/auth")

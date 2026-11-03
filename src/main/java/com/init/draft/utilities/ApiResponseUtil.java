@@ -1,7 +1,7 @@
-package com.expense.tracker.utilities;
+package com.init.draft.utilities;
 
-import com.expense.tracker.dtos.ApiResponse;
-import com.expense.tracker.enums.ResponseStatus;
+import com.init.draft.dtos.ApiResponse;
+import com.init.draft.enums.ResponseStatus;
 
 public class ApiResponseUtil {
 

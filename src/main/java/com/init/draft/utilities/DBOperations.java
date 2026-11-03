@@ -1,6 +1,6 @@
-package com.expense.tracker.utilities;
+package com.init.draft.utilities;
 
-import com.expense.tracker.enums.PersistOption;
+import com.init.draft.enums.PersistOption;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;

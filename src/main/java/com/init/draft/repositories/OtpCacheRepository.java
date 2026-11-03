@@ -1,4 +1,4 @@
-package com.expense.tracker.repositories;
+package com.init.draft.repositories;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;

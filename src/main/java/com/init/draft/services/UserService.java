@@ -1,9 +1,9 @@
-package com.expense.tracker.services;
+package com.init.draft.services;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.expense.tracker.dtos.UserProfileRecord;
-import com.expense.tracker.dtos.UserRecord;
+import com.init.draft.dtos.UserProfileRecord;
+import com.init.draft.dtos.UserRecord;
 
 public interface UserService {
 

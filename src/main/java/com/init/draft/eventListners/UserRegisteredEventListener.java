@@ -1,16 +1,13 @@
-package com.expense.tracker.eventListners;
+package com.init.draft.eventListners;
 
-import com.expense.tracker.events.UserRegisteredEvent;
-import com.expense.tracker.models.MailConfigurationORM;
-import com.expense.tracker.repositories.MailConfigurationRepository;
-import com.expense.tracker.utilities.DBOperations;
-import com.expense.tracker.utilities.EmailUtility;
+import com.init.draft.events.UserRegisteredEvent;
+import com.init.draft.models.MailConfigurationORM;
+import com.init.draft.repositories.MailConfigurationRepository;
+import com.init.draft.utilities.EmailUtility;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Component

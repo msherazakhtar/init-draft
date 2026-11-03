@@ -1,4 +1,4 @@
-package com.expense.tracker.events;
+package com.init.draft.events;
 
 import org.springframework.context.ApplicationEvent;
 

@@ -1,4 +1,4 @@
-package com.expense.tracker.security;
+package com.init.draft.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,17 +1,16 @@
-package com.expense.tracker.security;
+package com.init.draft.security;
 
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.expense.tracker.models.UsersORM;
-import com.expense.tracker.repositories.UserRepository;
+import com.init.draft.models.UsersORM;
+import com.init.draft.repositories.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

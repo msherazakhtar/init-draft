@@ -1,4 +1,4 @@
-package com.expense.tracker.utilities;
+package com.init.draft.utilities;
 
 public class GeneralUtilities {
     public static int generateOTP()
