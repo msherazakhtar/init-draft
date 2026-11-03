@@ -3,20 +3,8 @@ package com.expense.tracker.utilities;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.expense.tracker.dtos.ExpenseCategoryRecord;
-import com.expense.tracker.dtos.ExpenseDetailsRecord;
-import com.expense.tracker.dtos.ExpenseRecord;
-import com.expense.tracker.dtos.ExpenseSettlementRecord;
-import com.expense.tracker.dtos.GroupMembersRecord;
-import com.expense.tracker.dtos.GroupRecord;
 import com.expense.tracker.dtos.UserProfileRecord;
 import com.expense.tracker.dtos.UserRecord;
-import com.expense.tracker.models.ExpenseCategoryORM;
-import com.expense.tracker.models.ExpenseDetailsORM;
-import com.expense.tracker.models.ExpenseORM;
-import com.expense.tracker.models.ExpenseSettlementORM;
-import com.expense.tracker.models.GroupMembersORM;
-import com.expense.tracker.models.GroupsORM;
 import com.expense.tracker.models.UsersORM;
 
 public class MappingUtility {
@@ -54,118 +42,5 @@ public class MappingUtility {
         return userOrm;
     }
 
-    // Expense Category
-    public static ExpenseCategoryRecord expenseCategoryORMToRecord(ExpenseCategoryORM categoryORM) {
-        return new ExpenseCategoryRecord(
-                categoryORM.getCategoryId(),
-                categoryORM.getName(),
-                categoryORM.getUserId(),
-                categoryORM.getIsGlobal()
-
-        );
-    }
-
-    public static ExpenseCategoryORM expenseRecordToCategoryORM(ExpenseCategoryRecord record) {
-        ExpenseCategoryORM categoryORM = new ExpenseCategoryORM();
-        categoryORM.setCategoryId(record.categoryId()); // Optional: Usually null for inserts
-        categoryORM.setName(record.name());
-        categoryORM.setUserId(record.userId());
-        categoryORM.setIsGlobal(record.isGlobal());
-        return categoryORM;
-    }
-
-    // Expense
-    public static ExpenseORM expenseRecordToORM(ExpenseRecord record) {
-        ExpenseORM orm = new ExpenseORM();
-        orm.setId(record.id());
-        orm.setTitle(record.title());
-        orm.setDetails(record.details());
-        orm.setAmount(record.amount());
-        orm.setCategory(record.category());
-        orm.setCreatedBy(record.createdBy());
-        orm.setIsGroup(record.isGroup());
-        orm.setCreatedAt(record.createdAt());
-        orm.setUserId(record.userId());
-        orm.setGroupId(record.groupId());
-        orm.setAmountPerHead(record.amountPerHead());
-        orm.setExpenseDate(record.expenseDate());
-        return orm;
-    }
-
-    public static ExpenseRecord expenseORMToRecord(ExpenseORM orm) {
-        return new ExpenseRecord(
-                orm.getId(),
-                orm.getTitle(),
-                orm.getDetails(),
-                orm.getAmount(),
-                orm.getCategory(),
-                orm.getUserId(),
-                orm.getGroupId(),
-                orm.getCreatedBy(),
-                orm.getIsGroup(),
-                orm.getAmountPerHead(),
-                orm.getCreatedAt(),
-                orm.getExpenseDate());
-    }
-
-    // Groups
-    public static GroupsORM groupRecordToORM(GroupRecord record) {
-        return new GroupsORM(record.groupId(), record.name(), record.userId(), false, record.createdAt(),
-                record.createdBy(), record.modifiedAt(), record.modifiedBy());
-    }
-
-    public static GroupRecord groupORMToRecord(GroupsORM orm) {
-        return new GroupRecord(orm.getGroupId(), orm.getName(), orm.getUserId(), orm.getCreatedAt(),
-                orm.getCreatedBy(), orm.getModifiedAt(), orm.getModifiedBy());
-    }
-
-    // Group Memebrs
-    public static GroupMembersORM groupMemebrRecordToORM(GroupMembersRecord record) {
-        return new GroupMembersORM(record.groupMemebrId(), record.name(), record.email(), record.phone(),
-                record.groupId(), false,
-                record.createdAt(),
-                record.createdBy(), record.modifiedAt(), record.modifiedBy());
-    }
-
-    public static GroupMembersRecord groupMemberORMToRecord(GroupMembersORM orm) {
-        return new GroupMembersRecord(orm.getGroupMemberId(), orm.getName(), orm.getEmail(), orm.getPhone(),
-                orm.getGroupId(),
-                orm.getCreatedAt(), orm.getCreatedBy(), orm.getModifiedAt(), orm.getModifiedBy());
-    }
-
-    // Expense Details
-    public static ExpenseDetailsORM expenseDetailsRecordToORM(ExpenseDetailsRecord record) {
-        return new ExpenseDetailsORM(record.expenseDetailsId(), record.expenseId(), record.groupMemberId(),
-                record.paidAmount(), record.pendingAmount(), record.amountToPay(), record.isSettled(),
-                record.amountToGet());
-    }
-
-    public static ExpenseDetailsRecord expenseDetailsORMToRecord(ExpenseDetailsORM orm) {
-        return new ExpenseDetailsRecord(orm.getExpenseDetailsId(), orm.getExpenseId(), orm.getGroupMemberId(),
-                orm.getPaidAmount(), orm.getPendingAmount(), orm.getAmountToPay(), orm.getIsSettled(),
-                orm.getAmountToGet(), orm.getCreatedBy(), orm.getCreatedAt());
-    }
-
-    public static List<ExpenseDetailsRecord> expenseDetailsORMListToRecordList(List<ExpenseDetailsORM> orm) {
-        return orm.stream().map(MappingUtility::expenseDetailsORMToRecord).collect(Collectors.toList());
-    }
-
-    // Expense Settlement
-    public static ExpenseSettlementORM expenseSettlementRecordToORM(ExpenseSettlementRecord record) {
-        return new ExpenseSettlementORM(record.expenseSettlementId(), record.expenseId(), record.payerExpenseDetailsId(),
-                record.receiverExpenseDetailsId(),
-                record.settlementAmount(), record.settlementType(), record.paidBy(), record.paidTo(),
-                record.settlementDate());
-    }
-
-    public static ExpenseSettlementRecord expenseSettlementORMToRecord(ExpenseSettlementORM orm) {
-        return new ExpenseSettlementRecord(orm.getExpenseSettlementId(), orm.getExpenseId(), orm.getPayerExpenseDetailsId(),
-                orm.getReceiverExpenseDetailsId(),
-                orm.getSettlementAmount(), orm.getSettlementType(), orm.getPaidBy(), orm.getPaidTo(),
-                orm.getSettlementDate());
-    }
-
-    public static List<ExpenseSettlementRecord> expenseSettlementORMListToRecordList(List<ExpenseSettlementORM> orm) {
-        return orm.stream().map(MappingUtility::expenseSettlementORMToRecord).collect(Collectors.toList());
-    }
+   
 }

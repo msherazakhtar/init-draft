@@ -6,11 +6,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-public class ExpenseTrackerApplication {
+public class InitDraft {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExpenseTrackerApplication.class, args);
-		System.out.println("\n>>>>>>Split House Web Service Is Now Running<<<<<<");
+		SpringApplication.run(InitDraft.class, args);
+		System.out.println("\n>>>>>>Init Draft Is Now Running<<<<<<");
 	}
 
 }

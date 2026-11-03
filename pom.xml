@@ -9,11 +9,11 @@
 		<version>3.4.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.expense</groupId>
-	<artifactId>tracker</artifactId>
+	<groupId>com.init</groupId>
+	<artifactId>draft</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Expense Tracker</name>
-	<description>Expense Tracker project for Spring Boot</description>
+	<name>Init Draft</name>
+	<description>Initial Draft project for Spring Boot</description>
 	<url />
 	<licenses>
 		<license />
